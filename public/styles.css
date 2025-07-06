@@ -1,0 +1,95 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.navbar-brand i {
+    margin-right: 8px;
+}
+
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.asn-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    background-color: white;
+}
+
+.asn-item input {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.asn-item .btn {
+    margin-left: 5px;
+}
+
+.server-status {
+    font-weight: bold;
+}
+
+.server-status.running {
+    color: #28a745;
+}
+
+.server-status.stopped {
+    color: #dc3545;
+}
+
+.table th {
+    background-color: #f8f9fa;
+    border-top: none;
+}
+
+.event-package {
+    cursor: pointer;
+}
+
+.event-package:hover {
+    background-color: #f8f9fa;
+}
+
+.modal-body pre {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 4px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.stats-card {
+    text-align: center;
+}
+
+.stats-card h4 {
+    color: #007bff;
+    margin-bottom: 0;
+}
+
+.stats-card small {
+    color: #6c757d;
+}
+
+#currentRegistry {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.registry-item {
+    padding: 4px 8px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    font-family: monospace;
+} 

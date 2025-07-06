@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASN Registry Manager</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="container">
+            <span class="navbar-brand">
+                <i class="fas fa-credit-card"></i> ASN Registry Manager
+            </span>
+            <div class="d-flex">
+                <span class="navbar-text" id="server-status">
+                    <i class="fas fa-circle text-danger"></i> Сервер остановлен
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <ul class="nav nav-tabs" id="mainTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="server-tab" data-bs-toggle="tab" data-bs-target="#server" type="button" role="tab">
+                    <i class="fas fa-server"></i> Управление сервером
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="registry-tab" data-bs-toggle="tab" data-bs-target="#registry" type="button" role="tab">
+                    <i class="fas fa-list"></i> Реестр ASN
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="events-tab" data-bs-toggle="tab" data-bs-target="#events" type="button" role="tab">
+                    <i class="fas fa-database"></i> События
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="mainTabsContent">
+            <!-- Сервер -->
+            <div class="tab-pane fade show active" id="server" role="tabpanel">
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-power-off"></i> Управление сервером</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-success" id="startServer">
+                                        <i class="fas fa-play"></i> Запустить сервер
+                                    </button>
+                                    <button class="btn btn-danger" id="stopServer" disabled>
+                                        <i class="fas fa-stop"></i> Остановить сервер
+                                    </button>
+                                </div>
+                                <div class="mt-3">
+                                    <small class="text-muted">
+                                        <i class="fas fa-info-circle"></i> Сервер будет доступен на http://localhost:3000
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-chart-line"></i> Статистика</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="text-center">
+                                            <h4 id="packagesCount">0</h4>
+                                            <small class="text-muted">Пакетов событий</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="text-center">
+                                            <h4 id="eventsCount">0</h4>
+                                            <small class="text-muted">Событий</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Реестр ASN -->
+            <div class="tab-pane fade" id="registry" role="tabpanel">
+                <div class="row mt-3">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5><i class="fas fa-edit"></i> Редактирование ASN</h5>
+                                <button class="btn btn-primary btn-sm" id="addAsn">
+                                    <i class="fas fa-plus"></i> Добавить ASN
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div id="asnList">
+                                    <!-- ASN элементы будут добавлены динамически -->
+                                </div>
+                                <div class="mt-3">
+                                    <button class="btn btn-success" id="generateRegistry">
+                                        <i class="fas fa-file-export"></i> Сгенерировать реестр
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-eye"></i> Текущий реестр</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="currentRegistry">
+                                    <p class="text-muted">Реестр не сгенерирован</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- События -->
+            <div class="tab-pane fade" id="events" role="tabpanel">
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5><i class="fas fa-table"></i> Пакеты событий</h5>
+                                <button class="btn btn-outline-primary btn-sm" id="refreshEvents">
+                                    <i class="fas fa-sync-alt"></i> Обновить
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ID пакета</th>
+                                                <th>Терминал</th>
+                                                <th>Дата отправки</th>
+                                                <th>Событий</th>
+                                                <th>Действия</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="eventsTable">
+                                            <!-- Данные будут добавлены динамически -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальные окна -->
+    <div class="modal fade" id="eventDetailsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Детали пакета событий</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="eventDetailsContent">
+                    <!-- Содержимое будет добавлено динамически -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html> 
