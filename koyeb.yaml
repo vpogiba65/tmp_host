@@ -1,0 +1,24 @@
+name: asn-registry-api
+services:
+  - name: api
+    type: web
+    ports:
+      - port: 3000
+        protocol: http
+    env:
+      - name: NODE_ENV
+        value: production
+      - name: PORT
+        value: "3000"
+    docker:
+      image: ghcr.io/vpogiba/asn-registry-api:latest
+    routes:
+      - path: /
+        protocol: http
+    healthchecks:
+      - type: http
+        path: /health
+        port: 3000
+        interval: 30s
+        timeout: 10s
+        retries: 3 

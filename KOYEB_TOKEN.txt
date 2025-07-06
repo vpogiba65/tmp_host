@@ -1,0 +1,8 @@
+KOYEB_TOKEN=w42rwn5rcej3xcfz7dic7h24jen7kl29nrsy6g11gg2a5cx0o3vhaj1eosy14wum
+
+# Инструкция по добавлению в GitHub:
+# 1. Перейдите в репозиторий на GitHub
+# 2. Settings → Secrets and variables → Actions
+# 3. New repository secret
+# 4. Name: KOYEB_TOKEN
+# 5. Value: w42rwn5rcej3xcfz7dic7h24jen7kl29nrsy6g11gg2a5cx0o3vhaj1eosy14wum 

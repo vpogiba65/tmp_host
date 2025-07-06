@@ -8,10 +8,18 @@ WORKDIR /app
 COPY package*.json ./
 
 # Устанавливаем зависимости
-RUN npm install --production
+RUN npm ci --only=production
 
 # Копируем остальные файлы
 COPY . .
+
+# Создаем пользователя для безопасности
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nodejs -u 1001
+
+# Меняем владельца файлов
+RUN chown -R nodejs:nodejs /app
+USER nodejs
 
 # Открываем порт
 EXPOSE 3000
